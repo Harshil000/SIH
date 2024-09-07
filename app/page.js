@@ -50,12 +50,12 @@ export default function Home() {
             <span className="text">Scan Plant</span>
           </Link>
         </div>
-        <div className="-ml-96" data-aos="zoom-in-down" data-aos-delay="800">
+      </div>
+      <div className="w-[40%] h-full flex flex-col items-center justify-center gap-4">
+        <img data-aos="fade-left" data-aos-delay="300" src="image.jpg" alt="Not Found" className="h-[60%] rounded-lg" />
+        <div data-aos="zoom-in-down" data-aos-delay="800">
           <Button />
         </div>
-      </div>
-      <div className="w-[40%] h-full flex items-center justify-center">
-        <img data-aos="fade-left" data-aos-delay="300" src="image.jpg" alt="Not Found" className="h-[60%] rounded-lg" />
       </div>
     </main>
   );

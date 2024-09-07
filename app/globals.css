@@ -108,13 +108,8 @@
 .upmain{
   width: 100%;
   height: calc(100vh - 4rem);
-  /* min-height: calc(100vh - 4rem); */
 }
 
-/* .skiptranslate:nth-child(2) {
+.skiptranslate {
   display: none !important;
-} */
-
-/* .skiptranslate {
-  display: none !important;
-} */
+}
