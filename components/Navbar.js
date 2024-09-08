@@ -22,11 +22,11 @@ const Navbar = () => {
         console.log(response)
     }
 
-    if (user) {
-        NoticeUser()
-    }
-
     useEffect(() => {
+        if (user) {
+            NoticeUser()
+        }
+        
         AOS.init();
 
         let addScript = document.createElement('script')
