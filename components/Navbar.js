@@ -22,11 +22,11 @@ const Navbar = () => {
         console.log(response)
     }
 
+    if (user) {
+        NoticeUser()
+    }
+
     useEffect(() => {
-        if (user) {
-            NoticeUser()
-        }
-        
         AOS.init();
 
         let addScript = document.createElement('script')
@@ -83,7 +83,7 @@ const Navbar = () => {
                     </svg>
                 </div>
                 }
-                <select onChange={(e) => {ChangeLanguage(e)}} id="countries" className="notranslate bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                <select onChange={(e) => { ChangeLanguage(e) }} id="countries" className="notranslate bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
                     <option value="en">Select Any Language</option>
                     <option value="en">English</option>
                     <option value="hi">हिंदी</option>
