@@ -19,7 +19,6 @@ const Navbar = () => {
             body: JSON.stringify(user),
         })
         let response = await res.json()
-        console.log(response)
     }
 
     if (user) {
