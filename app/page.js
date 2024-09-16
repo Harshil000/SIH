@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import Button from "@/components/Button.js"
 import InstructionCard from "@/components/InstructionCard.js";
+import Chatbot from "@/components/Chatbot.js";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <main className="HomePage w-full flex items-center justify-evenly relative overflow-hidden">
       <InstructionCard />
+      <Chatbot />
       <div className="w-[58%] h-full flex flex-col items-center justify-center gap-8">
         <div className="flex flex-col items-center justify-center gap-4">
           <div data-aos="fade-right" data-aos-delay="300" className="flex flex-col justify-center gap-2 text-4xl font-bold">

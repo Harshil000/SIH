@@ -6,6 +6,22 @@
   font-family: sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .Navbtn::after {
   content: "";
   position: absolute;
@@ -105,11 +121,70 @@
   margin-left: 25%;
 }
 
-.upmain{
+.upmain {
   width: 100%;
   height: calc(100vh - 4rem);
 }
 
 .skiptranslate {
   display: none !important;
+}
+
+.chatbutton {
+  font-family: inherit;
+  font-size: 18px;
+  background: royalblue;
+  color: white;
+  padding: .3em .8em;
+  padding-left: 0.9em;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.chatbutton span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
+}
+
+.chatbutton svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.chatbutton:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.chatbutton:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+.chatbutton:hover span {
+  transform: translateX(5em);
+}
+
+.chatbutton:active {
+  transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+  from {
+    transform: translateY(0.1em);
+  }
+
+  to {
+    transform: translateY(-0.1em);
+  }
+}
+
+.chatToggle{
+  margin: 0;
+  display: none;
 }

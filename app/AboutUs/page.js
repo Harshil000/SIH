@@ -1,9 +1,11 @@
-import React from 'react'
+"use client"
+import Chatbot from "@/components/Chatbot.js";
 
 const page = () => {
   return (
-    <div>
+    <div className='relative'>
       About Us
+      <Chatbot />
     </div>
   )
 }

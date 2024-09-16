@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from "react"
+import Chatbot from "@/components/Chatbot.js";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -38,7 +39,8 @@ const page = () => {
     }
   }
   return (
-    <main className="flex flex-col items-center justify-evenly upmain">
+    <main className="flex flex-col items-center justify-evenly upmain relative">
+      <Chatbot />
       <div data-aos="fade-right" data-aos-delay="300" className="flex flex-col w-[50%] gap-3 px-4">
         <span className="font-semibold text-xl">How to Take a Clear Photo</span>
         <div>
