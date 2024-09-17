@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import '../style/navbar.css'
 
 const Navbar = () => {
     const { user, error, isLoading } = useUser();
@@ -53,6 +54,10 @@ const Navbar = () => {
         document.cookie = `googtrans=/en/${e.target.value}`
         window.location.reload()
     }
+
+    const GetSideNavBar = () => {
+        document.getElementsByClassName("aside")[0].classList.add("show")
+    }
     return (
         <nav data-aos="fade-down" className="w-full h-16 flex justify-between items-center sticky top-0 bg-white">
             <div className='flex items-center justify-evenly gap-4 ml-6'>
@@ -60,14 +65,14 @@ const Navbar = () => {
                     <img className="w-10 h-10" src="logo.png" alt="Not Available" />
                     <span className="text-xl font-bold">CropCare</span>
                 </Link>
-                <span className="btns flex items-center gap-4 h-full">
+                <span id='btns' className="flex items-center gap-4 h-full">
                     <Link href="/" className={`${pathname === "/" ? "font-semibold underline underline-offset-4 text-sky-600" : ""} text-lg transition-all relative Navbtn h-[40%] w-14 flex flex-col items-center justify-center`}>Home</Link>
                     <Link href="/UploadPhoto" className={`${pathname === "/UploadPhoto" ? 'font-semibold underline underline-offset-4 text-sky-600' : ""} text-lg transition-all Navbtn relative h-[40%] w-32 flex flex-col items-center justify-center`}>Upload Photo</Link>
                     <Link href="/DignosisHistory" className={`${pathname === "/DignosisHistory" ? 'font-semibold underline underline-offset-4 text-sky-600' : ""} text-lg transition-all Navbtn relative h-[40%] w-36 flex flex-col items-center justify-center`}>Dignosis History</Link>
                     <Link href="/AboutUs" className={`${pathname === "/AboutUs" ? 'font-semibold underline underline-offset-4 text-sky-600' : ""} text-lg transition-all Navbtn relative h-[40%] w-20 flex flex-col items-center justify-center`}>About Us</Link>
                 </span>
             </div>
-            <div className='flex items-center gap-2 w-fit mr-4'>
+            <div id='navcontrols' className='flex items-center gap-2 w-fit mr-4'>
                 {!user && <a href="/api/auth/login" className="login flex items-center gap-2 rounded-full border-2 border-sky-600 px-4 cursor-pointer transition-all hover:bg-sky-600 hover:text-white">
                     <span className="text-lg">Login</span>
                     <img src="Login-Avatar.gif" alt="Not Found" className="h-8 w-8" />
@@ -101,6 +106,7 @@ const Navbar = () => {
                     <option value="doi">डोगरी</option>
                 </select>
             </div>
+            <img src="menu.gif" alt="Not Found" id='menu' className='h-10 mr-4' onClick={GetSideNavBar} />
             {/* <div id='google_translate_element' className='w-fit'></div> */}
             {/* googtrans */}
             {/* /en/lang */}

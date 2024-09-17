@@ -44,10 +44,6 @@
   color: #1480cc;
 }
 
-.HomePage {
-  height: calc(100vh - 4rem);
-}
-
 .takeAsnapBtn {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -184,7 +180,13 @@
   }
 }
 
-.chatToggle{
+.chatToggle {
   margin: 0;
   display: none;
+}
+
+@media (max-width : 880px) {
+  .takeAsnapBtn{
+    padding: .5em 1.5em;
+  }
 }

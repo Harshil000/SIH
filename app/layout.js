@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar.js";
+import NavSideBar from "@/components/NavSideBar.js";
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import "./globals.css";
 
@@ -14,8 +15,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <UserProvider>
-        <body className={`${inter.className} relative`}>
+        <body className={`${inter.className} relative overflow-x-hidden`}>
           <Navbar />
+          <NavSideBar />
           {children}
         </body>
       </UserProvider>

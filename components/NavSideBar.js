@@ -1,0 +1,76 @@
+"use client"
+import Link from "next/link"
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { usePathname, useRouter } from "next/navigation"
+import "../style/NavSideBar.css"
+
+const NavSideBar = () => {
+    const { user, error, isLoading } = useUser();
+    const router = useRouter()
+    const pathname = usePathname()
+    const ChangeLanguage = (e) => {
+        document.cookie = `googtrans=/en/${e.target.value}`
+        window.location.reload()
+    }
+    const ConfirmLogOut = () => {
+        let input = confirm("Do you really want to LogOut ?");
+        if (input) {
+            router.push("/api/auth/logout")
+        } else {
+            return false
+        }
+    }
+    const CloseSideNavBar = () => {
+        document.getElementsByClassName("aside")[0].classList.remove("show")
+    }
+    return (
+        <aside className="aside">
+            <div className="flex items-center justify-end w-full">
+                <img src="cross.gif" alt="Not Found" className="h-8 mr-4" onClick={CloseSideNavBar}/>
+            </div>
+            <span className="flex flex-col items-center gap-4">
+                <Link href="/" className={`${pathname === "/" ? "font-semibold underline underline-offset-4 text-sky-600" : ""} text-lg transition-all relative Navbtn w-14 flex flex-col items-center justify-center`}>Home</Link>
+                <Link href="/UploadPhoto" className={`${pathname === "/UploadPhoto" ? 'font-semibold underline underline-offset-4 text-sky-600' : ""} text-lg transition-all Navbtn relative w-32 flex flex-col items-center justify-center`}>Upload Photo</Link>
+                <Link href="/DignosisHistory" className={`${pathname === "/DignosisHistory" ? 'font-semibold underline underline-offset-4 text-sky-600' : ""} text-lg transition-all Navbtn relative w-36 flex flex-col items-center justify-center`}>Dignosis History</Link>
+                <Link href="/AboutUs" className={`${pathname === "/AboutUs" ? 'font-semibold underline underline-offset-4 text-sky-600' : ""} text-lg transition-all Navbtn relative w-20 flex flex-col items-center justify-center`}>About Us</Link>
+                <Link href="/Guide" className={`${pathname === "/Guide" ? 'font-semibold underline underline-offset-4 text-sky-600' : ""} text-lg transition-all Navbtn relative flex flex-col items-center justify-center`}>Care Guide</Link>
+            </span>
+            <div className='flex flex-col items-center gap-2 w-fit mr-4'>
+                {!user && <a href="/api/auth/login" className="login flex items-center gap-2 rounded-full border-2 border-sky-600 px-4 cursor-pointer transition-all hover:bg-sky-600 hover:text-white">
+                    <span className="text-lg">Login</span>
+                    <img src="Login-Avatar.gif" alt="Not Found" className="h-8 w-8" />
+                </a>
+                }
+                {user && <div onClick={ConfirmLogOut} className='flex items-center gap-1 px-2 py-1 border border-sky-600 rounded-full cursor-pointer'>
+                    <img src={user.picture} alt="Not Found" className='h-8 w-8 rounded-full' />
+                    <span>{user.name}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ff0020" fill="none">
+                        <path d="M15 17.625C14.9264 19.4769 13.3831 21.0494 11.3156 20.9988C10.8346 20.987 10.2401 20.8194 9.05112 20.484C6.18961 19.6768 3.70555 18.3203 3.10956 15.2815C3 14.723 3 14.0944 3 12.8373L3 11.1627C3 9.90561 3 9.27705 3.10956 8.71846C3.70555 5.67965 6.18961 4.32316 9.05112 3.51603C10.2401 3.18064 10.8346 3.01295 11.3156 3.00119C13.3831 2.95061 14.9264 4.52307 15 6.37501" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        <path d="M21 12H10M21 12C21 11.2998 19.0057 9.99153 18.5 9.5M21 12C21 12.7002 19.0057 14.0085 18.5 14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </div>
+                }
+                <select onChange={(e) => { ChangeLanguage(e) }} id="countries" className="notranslate bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    <option value="en">Select Any Language</option>
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="bn">বাঙ্গালি</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="mr">मराठी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="or">ଓଡିଆ</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option>
+                    <option value="ml">മലയാളം</option>
+                    <option value="as">অসমীয়া</option>
+                    <option value="ur">اردو</option>
+                    <option value="mai">मैथिली</option>
+                    <option value="sat-Latn">Santali</option>
+                    <option value="doi">डोगरी</option>
+                </select>
+            </div>
+        </aside>
+    )
+}
+
+export default NavSideBar

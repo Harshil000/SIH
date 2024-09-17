@@ -1,5 +1,6 @@
 "use clinet"
 import { GoogleGenerativeAI } from "@google/generative-ai"
+import '../style/chatbot.css'
 import { useState } from "react";
 
 const Chatbot = () => {
@@ -96,7 +97,7 @@ const Chatbot = () => {
 
                 </div>
             </div>
-            <div className='absolute bottom-0 right-0 h-16  w-16  rounded-full bg-sky-600 cursor-pointer overflow-hidden flex items-center justify-center text-white text-xl' onClick={ShowChatBot}>
+            <div id="chatBTN" className='absolute bottom-0 right-0 h-16 w-16  rounded-full bg-sky-600 cursor-pointer overflow-hidden flex items-center justify-center text-white text-xl' onClick={ShowChatBot}>
                 Chat !
             </div>
         </div >

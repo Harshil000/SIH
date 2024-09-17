@@ -1,0 +1,17 @@
+*{
+    user-select: none;
+}
+
+@media (max-width : 1024px) {
+    #chatbot{
+        width: 40vw;
+    }
+}
+
+@media (max-width : 880px) {
+    #chatBTN{
+        height: 3rem;
+        width: 3rem;
+        font-size: .8rem;
+    }
+}
