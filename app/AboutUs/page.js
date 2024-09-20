@@ -1,5 +1,7 @@
 "use client"
 import Chatbot from "@/components/Chatbot.js";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import "./about.css"
 
 const page = () => {
@@ -7,7 +9,7 @@ const page = () => {
     <main className='relative'>
       <Chatbot />
       <div className="aboutmain flex items-center justify-evenly">
-        <div id="mainleft" className="flex flex-col px-16 py-8 h-full w-[45%] gap-4">
+        <div data-aos="fade-right" data-aos-delay="100" id="mainleft" className="flex flex-col px-16 py-8 h-full w-[45%] gap-4">
           <div className="text-sky-600 font-semibold text-2xl">What do we actually Do ?</div>
           <div>
             At FasalRakshak, we are dedicated to empowering farmers with the latest technological innovations to enhance crop health and yield. Our team, united by a shared passion for agriculture, is focused on simplifying plant disease diagnosis, helping farmers take immediate and effective action.
@@ -23,7 +25,7 @@ const page = () => {
           </div>
         </div>
         <div id="mainright" className="flex flex-col h-full w-[45%] py-8 px-16 gap-16">
-          <div className="flex flex-col gap-4">
+          <div data-aos="fade-down" data-aos-delay="150" className="flex flex-col gap-4">
             <div className="text-sky-600 font-semibold text-2xl">OUR VISION :- </div>
             <span>
               Social: Empowers farmers with knowledge and tools for
@@ -40,7 +42,7 @@ const page = () => {
               disease management.
             </span>
           </div>
-          <div className="flex flex-col gap-6">
+          <div data-aos="fade-up" data-aos-delay="150" className="flex flex-col gap-6">
             <div className="text-sky-600 font-semibold text-2xl">Contact Us</div>
             <div id="contact" className="flex items-center justify-evenly w-full">
               <div className="flex items-center gap-2">

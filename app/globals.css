@@ -49,7 +49,7 @@
   font-weight: bold;
   color: white;
   background-color: #171717;
-  padding: .8em 2em;
+  padding: .75em 2em;
   border: none;
   border-radius: .6rem;
   position: relative;
@@ -108,8 +108,6 @@
 }
 
 .instructionCard {
-  /* margin-left: -100%; */
-  /* margin-top: 5%; */
   transition: all .5s ease;
   left: -100%;
 }
