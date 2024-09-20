@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <UserProvider>
-        <body className={`${inter.className} relative overflow-x-hidden`}>
+        <body className={`${inter.className} relative`}>
           <Navbar />
           <NavSideBar />
           {children}

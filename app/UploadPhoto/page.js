@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import Chatbot from "@/components/Chatbot.js";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import './upload.css'
 
 const page = () => {
 
@@ -41,8 +42,8 @@ const page = () => {
   return (
     <main className="flex flex-col items-center justify-evenly upmain relative">
       <Chatbot />
-      <div data-aos="fade-right" data-aos-delay="300" className="flex flex-col w-[50%] gap-3 px-4">
-        <span className="font-semibold text-xl">How to Take a Clear Photo</span>
+      <div data-aos="fade-right" data-aos-delay="300" id="instructions" className="flex flex-col w-[50%] gap-3 px-4">
+        <span id="instructionTitle" className="font-semibold text-xl">How to Take a Clear Photo</span>
         <div>
           <div>Ensure the plant is well-lit with natural light.</div>
           <div>Keep the camera steady to avoid blurring.</div>
@@ -50,7 +51,7 @@ const page = () => {
           <div>Avoid background distractions.</div>
         </div>
       </div>
-      <div data-aos-delay="500" data-aos="flip-down" className="flex flex-col items-center justify-evenly w-[50%] h-[60%] bg-blue-200 rounded-3xl">
+      <div data-aos-delay="500" data-aos="flip-down" id="imageUpload" className="flex flex-col items-center justify-evenly w-[50%] h-[60%] bg-blue-200 rounded-3xl">
         <img data-aos-delay="650" data-aos="zoom-out" src={img} alt="Not Found" className="h-[70%] rounded-2xl aspect-square" />
         <div className="flex items-center justify-evenly w-[98%]">
           {/* <div className="w-[45%] py-2 rounded-full flex items-center justify-center bg-purple-800 text-white cursor-pointer gap-2 transition-all hover:bg-purple-900">
@@ -68,7 +69,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="italic">
+      <div className="italic text-center">
         <span className="text-red-600">Note</span> : To change the uploaded image , just re-upload photo by clicking on upload image button
       </div>
     </main>

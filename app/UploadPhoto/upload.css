@@ -1,0 +1,29 @@
+.upmain {
+    width: 100%;
+    height: calc(100vh - 4rem);
+}
+
+@media (max-width : 430px) {
+    #instructions {
+        width: 100%;
+    }
+
+    #instructionTitle {
+        font-size: 1rem;
+    }
+
+    #imageUpload {
+        width: 95%;
+    }
+
+    #chatBTN {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    #chatbot {
+        margin-bottom: 5rem;
+        height: 70vh;
+        width: 90vw;
+    }
+}
