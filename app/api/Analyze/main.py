@@ -1,10 +1,10 @@
-import sys
+# import sys
 import tensorflow as tf
 import cv2
 import numpy as np
 
 # Load your model
-model = tf.keras.models.load_model('plant_disease_model.h5')
+model = tf.keras.models.load_model('app/api/Analyze/plant_disease_model.h5')
 
 # Define the class labels as per your dataset
 class_labels = [
@@ -319,7 +319,7 @@ class_info = {
 }
 
 # Load and preprocess the image
-image_path = 'tomato___yellow_leaf_curl.png'
+image_path = 'app/api/Analyze/R.jpeg'
 image = cv2.imread(image_path)
 image = cv2.resize(image, (224, 224))  # Ensure the size matches the model's input shape
 image = image.astype('float32') / 255.0  # Normalize the image
