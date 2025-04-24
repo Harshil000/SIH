@@ -1,11 +1,19 @@
 'use client'
 import { useState, useEffect } from "react"
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { useRouter } from 'next/navigation'
 import Chatbot from "@/components/Chatbot.js";
+import LoadingPage from "@/components/LoadingPage";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './upload.css'
+import uuid4 from "uuid4";
 
 const page = () => {
+
+  const [AnalyzingProcess, setAnalyzingProcess] = useState(false)
+  const { user, error, isLoading } = useUser();
+  const router = useRouter()
 
   useEffect(() => {
     AOS.init();
@@ -32,15 +40,43 @@ const page = () => {
     setImg(base64)
   }
 
-  const AnalyzeImage = () => {
-    if (img == "logo.png") {
-      alert("Please Upload Image")
+  const AnalyzeImage = async () => {
+
+    if (!user) {
+      alert("Please Login to Analyze Image")
     } else {
-      alert("Thanks For Uploading image")
+      setAnalyzingProcess(true)
+      let toStore
+      if (img == "logo.png") {
+        alert("Please Upload Image")
+      } else {
+        const res = await fetch('http://127.0.0.1:5000/Analyze', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ image: img, uuid4: uuid4() }),
+        })
+        let response = await res.json()
+        // console.log(response)
+        toStore = response
+      }
+
+      const storeData = await fetch('/api/storeHistory', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nickname: user.nickname, data: toStore }),
+      })
+      let revert = await storeData.json()
+      setAnalyzingProcess(false)
+      router.push(`/DignosisHistory?name=${user.nickname}`)
     }
   }
   return (
-    <main className="flex flex-col items-center justify-evenly upmain relative">
+    <main className="flex flex-col items-center justify-evenly upmain relative overflow-hidden">
+      {AnalyzingProcess && <LoadingPage message="Analyzing your crop image..." />}
       <Chatbot />
       <div data-aos="fade-right" data-aos-delay="300" id="instructions" className="flex flex-col w-[50%] gap-3 px-4">
         <span id="instructionTitle" className="font-semibold text-xl">How to Take a Clear Photo</span>
@@ -54,10 +90,6 @@ const page = () => {
       <div data-aos-delay="500" data-aos="flip-down" id="imageUpload" className="flex flex-col items-center justify-evenly w-[50%] h-[60%] bg-blue-200 rounded-3xl">
         <img data-aos-delay="650" data-aos="zoom-out" src={img} alt="Not Found" className="h-[70%] rounded-2xl aspect-square" />
         <div className="flex items-center justify-evenly w-[98%]">
-          {/* <div className="w-[45%] py-2 rounded-full flex items-center justify-center bg-purple-800 text-white cursor-pointer gap-2 transition-all hover:bg-purple-900">
-            <img src="camera.gif" alt="Not Available" className="h-8" />
-            <span>Click Photo</span>
-          </div> */}
           <label data-aos-delay="800" data-aos="fade-right" htmlFor="file-upload" className="w-[45%] py-2 rounded-full flex items-center justify-center bg-purple-800 text-white cursor-pointer gap-2 transition-all hover:bg-purple-900">
             <img src="upload.gif" alt="Not Available" className="h-8" />
             <span>Upload Image</span>

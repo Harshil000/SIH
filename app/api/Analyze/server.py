@@ -1,12 +1,31 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import tensorflow as tf
 import cv2
 import numpy as np
+model = tf.keras.models.load_model('./plant_disease_model.h5')
+import base64
 
-# Load your model
-model = tf.keras.models.load_model('app/api/Analyze/plant_disease_model.h5')
+app = Flask(__name__)
+CORS(app)
 
-# Define the class labels as per your dataset
-class_labels = [
+@app.route("/")
+def hello_world():
+    return f"<p>Hello, World!</p>"
+
+@app.route("/Analyze" , methods=["POST"])
+def analyze():
+    data = request.get_json()
+    imagename = data.get("image")
+    uuid4 = data.get("uuid4")
+    base64_string = imagename
+    image_data = base64.b64decode(base64_string.split(",")[1])
+    output_file_path = "output_image.jpg"
+    with open(output_file_path, "wb") as image_file:
+        image_file.write(image_data)
+    print(f"Image saved to {output_file_path}")
+    
+    class_labels = [
     'Apple Apple_scab',
     'Apple Black_rot',
     'Apple Cedar_apple_rust',
@@ -46,9 +65,7 @@ class_labels = [
     'Tomato Tomato_mosaic_virus',
     'Tomato healthy'
 ]
-
-# Define detailed information for each class
-class_info = {
+    class_info = {
     'Apple Apple_scab': {
         'plant_name': 'Apple',
         'status': 'Apple scab',
@@ -70,6 +87,7 @@ class_info = {
         'maintain_healthy': 'Remove nearby cedar trees or use resistant apple varieties; ensure proper air circulation.',
         'medicine': 'Captan, sulfur-based fungicides.'
     },
+    
     'Apple healthy': {
         'plant_name': 'Apple',
         'status': 'Healthy',
@@ -316,27 +334,38 @@ class_info = {
         'medicine': 'None'
     }
 }
+    
+    # Load and preprocess the image
+    image_path = './output_image.jpg'  # Path to the saved image
+    image = cv2.imread(image_path)  # Load the image from the path
+    image = cv2.resize(image, (224, 224))  # Ensure the size matches the model's input shape
+    image = image.astype('float32') / 255.0  # Normalize the image
+    image = np.expand_dims(image, axis=0)  # Add batch dimension
+    
+    # Predict the class of the image
+    predictions = model.predict(image)
+    predicted_class_index = np.argmax(predictions)
+    predicted_class_label = class_labels[predicted_class_index]
 
-# Load and preprocess the image
-image_path = 'app/api/Analyze/R.jpeg'
-image = cv2.imread(image_path)
-image = cv2.resize(image, (224, 224))  # Ensure the size matches the model's input shape
-image = image.astype('float32') / 255.0  # Normalize the image
-image = np.expand_dims(image, axis=0)  # Add batch dimension
+    # Retrieve detailed information
+    plant_info = class_info.get(predicted_class_label, None)
 
-# Predict the class of the image
-predictions = model.predict(image)
-predicted_class_index = np.argmax(predictions)
-predicted_class_label = class_labels[predicted_class_index]
-
-# Retrieve detailed information
-plant_info = class_info.get(predicted_class_label, None)
-
-if plant_info:
-    print(f"Plant Name: {plant_info['plant_name']}")
-    print(f"Status: {plant_info['status']}")
-    print(f"Cure: {plant_info['cure']}")
-    print(f"Maintain Healthy: {plant_info['maintain_healthy']}")
-    print(f"Recommended Medicine: {plant_info['medicine']}")
-else:
-    print("Information for this class is not available.")
+    if plant_info:
+        print(f"Plant Name: {plant_info['plant_name']}")
+        print(f"Status: {plant_info['status']}")
+        print(f"Cure: {plant_info['cure']}")
+        print(f"Maintain Healthy: {plant_info['maintain_healthy']}")
+        print(f"Recommended Medicine: {plant_info['medicine']}")
+        return jsonify({
+        'PlantName': f"{plant_info['plant_name']}",
+        'Status': f"{plant_info['status']}",
+        'Cure': f"{plant_info['cure']}",
+        'MaintainHealthy': f"{plant_info['maintain_healthy']}",
+        'RecommendedMedicine': f"{plant_info['medicine']}",
+        "img" : imagename ,
+        "uuid4" : uuid4
+        })
+    else:
+        return jsonify({
+            'error': 'No information available for the predicted class.'
+        })
